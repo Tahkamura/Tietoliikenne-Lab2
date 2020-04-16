@@ -1,5 +1,6 @@
 package com.example.lab1t3;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -12,7 +13,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
+// Tähän on yhdistetty kaikki lab2 tehtävät, json haetaan tehtävän 1 async taskin kautta ja tehtävät 2 ja 3 on yhdistetty yhteen.
+// Projektin nimi on lab1T3 koska sitä on jatkettu simple html tehtävään, älä siis välitä siitä.
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AsyncClass.Face {
 
     ArrayList<String> list;
@@ -29,6 +31,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         list = new ArrayList<String>();
         lista = findViewById(R.id.lista);
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1,list);
@@ -43,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.addStock) {
+            // Tarkistetaan ettei kumpikaan kenttä ole tyhjä ja haetaan sitten annettua id:tä vastaavan osakkeen tiedot
             if (getName.getText().length() != 0 && getId.getText().length() != 0) {
                 String id = getId.getText().toString();
                 name = getName.getText().toString();
@@ -57,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+    // Tiedot on saatu ja kirjoitetaan ne listviewiin
     @Override
     public void done(String data) {
         try {
